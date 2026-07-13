@@ -22,22 +22,38 @@ function initSvgViewers() {
     const zoomOutBtn = viewer.querySelector('[data-zoom-out]');
     const resetBtn = viewer.querySelector('[data-zoom-reset]');
     const MIN_SCALE = 1, MAX_SCALE = 6;
+    let baseW = 0, baseH = 0;
     let scale = 1, x = 0, y = 0, isDragging = false;
     let startPointer = { x: 0, y: 0 }, startPane = { x: 0, y: 0 };
     let pinchStartDist = null, pinchStartScale = 1;
 
-    function apply() { pane.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
-    function clamp() {
+    function measure() {
       const rect = stage.getBoundingClientRect();
-      x = Math.min(0, Math.max(rect.width * (1 - scale), x));
-      y = Math.min(0, Math.max(rect.height * (1 - scale), y));
+      baseW = rect.width;
+      baseH = rect.height;
     }
+
+    function apply() {
+      // Resize the pane itself so the SVG re-rasterizes crisply at the new size.
+      pane.style.width = (baseW * scale) + 'px';
+      pane.style.height = (baseH * scale) + 'px';
+      // Transform only ever translates — never scales — so nothing gets blurred.
+      pane.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function clamp() {
+      x = Math.min(0, Math.max(baseW * (1 - scale), x));
+      y = Math.min(0, Math.max(baseH * (1 - scale), y));
+    }
+
     function zoomAt(px, py, factor) {
       const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * factor));
       if (newScale === scale) return;
       x = px - ((px - x) / scale) * newScale;
       y = py - ((py - y) / scale) * newScale;
-      scale = newScale; clamp(); apply();
+      scale = newScale;
+      clamp();
+      apply();
     }
 
     stage.addEventListener('wheel', (e) => {
@@ -84,16 +100,19 @@ function initSvgViewers() {
     }, { passive: false });
     stage.addEventListener('touchend', () => { pinchStartDist = null; });
 
-    zoomInBtn.addEventListener('click', () => { const r = stage.getBoundingClientRect(); zoomAt(r.width / 2, r.height / 2, 1.3); });
-    zoomOutBtn.addEventListener('click', () => { const r = stage.getBoundingClientRect(); zoomAt(r.width / 2, r.height / 2, 1 / 1.3); });
-    resetBtn.addEventListener('click', () => { scale = 1; x = 0; y = 0; apply(); });
+    zoomInBtn.addEventListener('click', () => zoomAt(baseW / 2, baseH / 2, 1.3));
+    zoomOutBtn.addEventListener('click', () => zoomAt(baseW / 2, baseH / 2, 1 / 1.3));
+    resetBtn.addEventListener('click', () => { scale = 1; x = 0; y = 0; measure(); apply(); });
 
     viewer.addEventListener('keydown', (e) => {
-      const r = stage.getBoundingClientRect();
-      if (e.key === '+' || e.key === '=') zoomAt(r.width / 2, r.height / 2, 1.3);
-      if (e.key === '-') zoomAt(r.width / 2, r.height / 2, 1 / 1.3);
-      if (e.key === '0') { scale = 1; x = 0; y = 0; apply(); }
+      if (e.key === '+' || e.key === '=') zoomAt(baseW / 2, baseH / 2, 1.3);
+      if (e.key === '-') zoomAt(baseW / 2, baseH / 2, 1 / 1.3);
+      if (e.key === '0') { scale = 1; x = 0; y = 0; measure(); apply(); }
     });
+
+    window.addEventListener('resize', () => { scale = 1; x = 0; y = 0; measure(); apply(); });
+
+    measure();
     apply();
   });
 }
