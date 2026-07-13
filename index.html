@@ -94,15 +94,40 @@
       <div class="entry-rail"><span class="tick" aria-hidden="true"></span></div>
       <div class="entry-body">
         <p class="eyebrow">Hardware</p>
-        <h2>PCBs, printed parts, and the occasional wooden ship</h2>
-        <p class="section-note">Custom recording &amp; stimulation boards, 3D-printed fixtures, and &mdash; unrelated to any lab &mdash; scale models of 17th&ndash;18th century sailing ships, built plank by plank.</p>
+        <h2>PCBs and printed parts</h2>
+        <p class="section-note">Custom recording &amp; stimulation boards and 3D-printed fixtures from the lab.</p>
         <div class="card">
-          <p class="card-kicker">PCB &middot; Analog electronics</p>
+          <p class="card-kicker">PCB &middot; Digital electronics &middot; Real-time systems &middot; 2026</p>
+          <h3>128Ch Digital Isolation and LVDS conversion system for custom closed-loop BMI using Intan RHS system</h3>
+          <p>A custom interface board that bridges four <a href="https://intantech.com/RHS_headstages.html?tabSelect=RHS32ch&yPos=183" target="_blank" rel="noopener">Intan RHS 32-channel stimulation/recording headstages</a> to a Speedgoat real-time target machine, providing digital isolation and LVDS signal conversion across 128 channels. Designed to meet the strict timing demands of low-latency, closed-loop brain-machine interfaces where round-trip latency between neural recording and stimulation delivery is critical.</p>
+
+          <figure class="hw-figure">
+            <img src="assets/hardware/lvds/speedgoat_intan_lvds%20v41.svg" alt="128-channel digital isolation and LVDS conversion system schematic" class="hw-schematic">
+            <figcaption>Schematic &mdash; Speedgoat &ndash; Intan LVDS interface v41</figcaption>
+          </figure>
+
+          <div class="hw-3d">
+            <iframe
+              title="Speedgoat–Intan LVDS interface 3D model"
+              class="sketchfab-embed"
+              src="https://sketchfab.com/models/8e79713b03b64dea969843048e0c9ffc/embed"
+              frameborder="0"
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              allowfullscreen
+              mozallowfullscreen="true"
+              webkitallowfullscreen="true">
+            </iframe>
+            <figcaption>3D model &mdash; Speedgoat &ndash; Intan LVDS interface</figcaption>
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="card-kicker">PCB &middot; Analog electronics &middot; 2023</p>
           <h3>Low-leakage current analog 128-Ch multiplexer for Autolab Potentiostat electrochemical measurements</h3>
           <p>A custom analog multiplexer board extending an Autolab potentiostat to 128 channels, designed to keep leakage currents negligible for accurate electrochemical impedance measurements.</p>
 
           <figure class="hw-figure">
-            <img src="128ch_mux/128ch_analog_mux%20v1.svg" alt="128-channel analog multiplexer schematic" class="hw-schematic">
+            <img src="assets/hardware/128ch_mux/128ch_analog_mux%20v1.svg" alt="128-channel analog multiplexer schematic" class="hw-schematic">
             <figcaption>Schematic &mdash; 128-ch analog MUX v1</figcaption>
           </figure>
 
