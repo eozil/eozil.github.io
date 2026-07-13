@@ -175,6 +175,24 @@ a:focus-visible, button:focus-visible {
   padding: 6px 14px;
 }
 
+/* Hardware media */
+.hw-figure, .hw-3d {
+  margin: 20px 0 0;
+}
+.hw-schematic {
+  display: block; width: 100%;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: #fff;
+}
+.sketchfab-embed {
+  display: block; width: 100%; aspect-ratio: 16 / 9;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.hw-figure figcaption, .hw-3d figcaption {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--ink-faint); margin-top: 8px;
+}
+
 /* Gallery placeholders */
 .gallery-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
