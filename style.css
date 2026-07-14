@@ -175,6 +175,26 @@ a:focus-visible, button:focus-visible {
   padding: 6px 14px;
 }
 
+/* In-card media */
+.card-media-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin: 18px 0 0;
+}
+.card-media-item {
+  margin: 12px 0 0;
+}
+.card-media-full {
+  margin-top: 12px;
+}
+.card-media-item img {
+  display: block; width: 100%; border-radius: 7px;
+  border: 1px solid var(--line);
+}
+.card-media-item figcaption {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--ink-faint); margin-top: 6px;
+}
+
 /* Hardware media */
 .hw-figure, .hw-3d {
   margin: 20px 0 0;
